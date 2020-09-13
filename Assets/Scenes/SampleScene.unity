@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 188615515}
   - component: {fileID: 188615516}
   - component: {fileID: 188615517}
+  - component: {fileID: 188615518}
   m_Layer: 9
   m_Name: PlayerOne
   m_TagString: Untagged
@@ -206,7 +207,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.42, y: -3.31, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
-  m_Children: []
+  m_Children:
+  - {fileID: 1099102570}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -272,8 +274,13 @@ MonoBehaviour:
   leftKey: 97
   rightKey: 100
   jumpKey: 119
+  downKey: 115
+  dashKey: 32
   speed: 5
   jumpForce: 7
+  dashForce: 4
+  dashTime: 0.8
+  dashColdown: 2
   fallWallCounter: 2
 --- !u!114 &188615516
 MonoBehaviour:
@@ -312,6 +319,23 @@ MonoBehaviour:
   onWall: 0
   onRightWall: 0
   onLeftWall: 0
+--- !u!114 &188615518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188615510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46aca376135595149b8b2945020eb9c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 8402682571041325614, guid: f5b9210e8531df241a2ea3b4cbd17e1b, type: 3}
+  bulletSpeed: 5
+  cannon: {fileID: 1099102569}
+  target: {fileID: 350029858}
+  shootKey: 121
 --- !u!1 &350029858
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,8 +410,13 @@ MonoBehaviour:
   leftKey: 276
   rightKey: 275
   jumpKey: 273
+  downKey: 0
+  dashKey: 0
   speed: 5
-  jumpForce: 7
+  jumpForce: 7.2
+  dashForce: 0
+  dashTime: 0
+  dashColdown: 0
   fallWallCounter: 2
 --- !u!50 &350029862
 Rigidbody2D:
@@ -802,6 +831,36 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.02, y: 2.5}
   m_EdgeRadius: 0
+--- !u!1 &1099102569
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1099102570}
+  m_Layer: 0
+  m_Name: Cannon
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1099102570
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099102569}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 188615512}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1360899512
 GameObject:
   m_ObjectHideFlags: 0
