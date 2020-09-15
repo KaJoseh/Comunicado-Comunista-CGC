@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 188615519}
   m_Layer: 9
   m_Name: PlayerOne
-  m_TagString: Untagged
+  m_TagString: PlayerOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bb4d2082e2e8564baaadf971952ff69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullets: 50
+  bullets: 25
   bulletText: {fileID: 1176416582}
 --- !u!1 &350029858
 GameObject:

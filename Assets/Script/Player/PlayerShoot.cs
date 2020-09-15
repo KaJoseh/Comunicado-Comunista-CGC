@@ -32,7 +32,7 @@ public class PlayerShoot : MonoBehaviour
         direction = new Vector2(target.transform.position.x - transform.position.x, target.transform.position.y - transform.position.y);
         cannon.transform.up = direction;
 
-        if (Input.GetKeyDown(shootKey))
+        if (Input.GetKeyDown(shootKey) && playerH.bullets >= 0)
         {
             Shoot();
             playerH.bullets--;
@@ -42,6 +42,12 @@ public class PlayerShoot : MonoBehaviour
     void Shoot()
     {
         GameObject firedBullet = Instantiate(bullet, cannon.gameObject.transform.position, cannon.gameObject.transform.rotation);
+
+        if (gameObject.tag.Equals("PlayerOne"))
+            firedBullet.GetComponent<SpriteRenderer>().color = Color.green;
+        else
+            firedBullet.GetComponent<SpriteRenderer>().color = Color.blue;
+
         firedBullet.GetComponent<Rigidbody2D>().velocity = cannon.gameObject.transform.up * bulletSpeed;
     }
 }

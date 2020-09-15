@@ -85,12 +85,13 @@ public class PlayerMovement : MonoBehaviour
                 if (mColl.onWall && mColl.onRightWall)
                 {
                     JumpingFromWall();
-                    rb.velocity = new Vector2(-speed, rb.velocity.y);
+                    rb.velocity = Vector2.Lerp(new Vector2 (rb.velocity.x, rb.velocity.y), new Vector2(-speed * 4, rb.velocity.y), 2);
                 }
                 else if (mColl.onWall && mColl.onLeftWall)
                 {
                     JumpingFromWall();
-                    rb.velocity = new Vector2(speed, rb.velocity.y);
+                    rb.velocity = Vector2.Lerp(new Vector2(rb.velocity.x, rb.velocity.y), new Vector2(speed * 4, rb.velocity.y),2);
+                    //rb.velocity = new Vector2(speed * 4, rb.velocity.y);
                 }
             }
             else if (wallCounter >= 0)
@@ -138,11 +139,11 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, 0);
         if (mColl.onRightWall)
         {
-            rb.velocity = new Vector2(-speed, jumpForce);
+            rb.velocity = new Vector2(-speed * 2, jumpForce);
         }
         else if (mColl.onLeftWall)
         {
-            rb.velocity = new Vector2(speed, jumpForce);
+            rb.velocity = new Vector2(speed * 2, jumpForce);
         }
     }
 
