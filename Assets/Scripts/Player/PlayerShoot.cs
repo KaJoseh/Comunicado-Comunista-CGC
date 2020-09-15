@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerHealth))]
+[RequireComponent(typeof(PlayerGetDamage))]
 public class PlayerShoot : MonoBehaviour
 {
 
@@ -32,10 +33,10 @@ public class PlayerShoot : MonoBehaviour
         direction = new Vector2(target.transform.position.x - transform.position.x, target.transform.position.y - transform.position.y);
         cannon.transform.up = direction;
 
-        if (Input.GetKeyDown(shootKey) && playerH.bullets >= 0)
+        if (Input.GetKeyDown(shootKey) && playerH.health >= 0)
         {
             Shoot();
-            playerH.bullets--;
+            playerH.health--;
         }
     }
 
@@ -44,9 +45,15 @@ public class PlayerShoot : MonoBehaviour
         GameObject firedBullet = Instantiate(bullet, cannon.gameObject.transform.position, cannon.gameObject.transform.rotation);
 
         if (gameObject.tag.Equals("PlayerOne"))
+        {
             firedBullet.GetComponent<SpriteRenderer>().color = Color.green;
+            firedBullet.gameObject.tag = "P1Bullet";
+        }
         else
+        {
             firedBullet.GetComponent<SpriteRenderer>().color = Color.blue;
+            firedBullet.gameObject.tag = "P2Bullet";
+        }
 
         firedBullet.GetComponent<Rigidbody2D>().velocity = cannon.gameObject.transform.up * bulletSpeed;
     }

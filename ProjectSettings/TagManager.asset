@@ -8,6 +8,8 @@ TagManager:
   - Wall
   - PlayerOne
   - PlayerTwo
+  - P1Bullet
+  - P2Bullet
   layers:
   - Default
   - TransparentFX

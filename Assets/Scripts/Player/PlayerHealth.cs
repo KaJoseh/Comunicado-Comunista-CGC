@@ -5,17 +5,17 @@ using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float bullets;
+    public float health;
     public TextMeshProUGUI bulletText;
 
     // Update is called once per frame
     void Update()
     {
-        bulletText.SetText(bullets.ToString());
+        bulletText.SetText(health.ToString());
 
-        if(bullets < 0)
+        if(health < 0)
         {
-            print("MUERTO");
+            //print("MUERTO");
         }
     }
 }
