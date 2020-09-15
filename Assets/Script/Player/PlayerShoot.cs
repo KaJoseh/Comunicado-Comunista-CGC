@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerHealth))]
 public class PlayerShoot : MonoBehaviour
 {
 
@@ -17,11 +18,12 @@ public class PlayerShoot : MonoBehaviour
     KeyCode shootKey;
 
     Vector2 direction;
+    PlayerHealth playerH;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        playerH = GetComponent<PlayerHealth>();
     }
 
     // Update is called once per frame
@@ -33,6 +35,7 @@ public class PlayerShoot : MonoBehaviour
         if (Input.GetKeyDown(shootKey))
         {
             Shoot();
+            playerH.bullets--;
         }
     }
 
