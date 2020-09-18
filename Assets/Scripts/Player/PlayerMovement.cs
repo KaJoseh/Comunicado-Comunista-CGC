@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public KeyCode leftKey, rightKey, jumpKey, downKey, dashKey;
+    GameManager gm;
 
     [Space]
     [Header("Movement vars")]
@@ -39,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
         wallCounter = fallWallCounter;
         //dashCounter = dashTime;
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -55,11 +57,14 @@ public class PlayerMovement : MonoBehaviour
 
         //print(canDash);
 
-        if ((!mColl.onWall || mColl.onGround) && !wallJumping) { }
-            Walk();
+        if (gm.GameMode.Equals(GameManager.gameModes.PLAYING))
+        {
+            if ((!mColl.onWall || mColl.onGround) && !wallJumping)
+                Walk();
 
-        if (Input.GetKey(jumpKey) && mColl.onGround)
-            Jump();
+            if (Input.GetKey(jumpKey) && mColl.onGround)
+                Jump();
+        }
 
         if((!mColl.onWall && !mColl.onGround) || mColl.onGround)
         {

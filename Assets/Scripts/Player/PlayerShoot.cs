@@ -33,10 +33,10 @@ public class PlayerShoot : MonoBehaviour
         direction = new Vector2(target.transform.position.x - transform.position.x, target.transform.position.y - transform.position.y);
         cannon.transform.up = direction;
 
-        if (Input.GetKeyDown(shootKey) && playerH.health >= 0)
+        if (Input.GetKeyDown(shootKey) && playerH.currentHealth >= 0)
         {
             Shoot();
-            playerH.health--;
+            playerH.currentHealth--;
         }
     }
 
