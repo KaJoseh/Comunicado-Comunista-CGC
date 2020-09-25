@@ -8,8 +8,8 @@ public class RoundManager : MonoBehaviour
 
     public GameObject p1;
     public GameObject p2;
-    public GameStats gameStats;
 
+    GameManager gm;
     SetWinner setWinner;
 
     [Space]
@@ -19,14 +19,10 @@ public class RoundManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gm = GetComponent<GameManager>();
         setWinner = GetComponent<SetWinner>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     /// <summary>
     /// Reset the round when someone wins
@@ -34,8 +30,8 @@ public class RoundManager : MonoBehaviour
     public void NewRound()
     {
         //setting players health
-        p1.GetComponent<PlayerHealth>().currentHealth = gameStats.maxHealth;
-        p2.GetComponent<PlayerHealth>().currentHealth = gameStats.maxHealth;
+        p1.GetComponent<PlayerHealth>().currentHealth = gm.maxHealth;
+        p2.GetComponent<PlayerHealth>().currentHealth = gm.maxHealth;
 
         //setting players position
         p1.transform.position = p1Spawn.transform.position;

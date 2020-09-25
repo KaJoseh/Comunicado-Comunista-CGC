@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement vars")]
     public float speed;
     public float jumpForce;
+    public float BONUS_GRAV;
 
     [Space]
     [Header("Dash vars")]
@@ -55,6 +56,10 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKey(leftKey))
             xDir = -1;
 
+    }
+    private void FixedUpdate()
+    {
+
         //print(canDash);
 
         if (gm.GameMode.Equals(GameManager.gameModes.PLAYING))
@@ -66,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
                 Jump();
         }
 
-        if((!mColl.onWall && !mColl.onGround) || mColl.onGround)
+        if ((!mColl.onWall && !mColl.onGround) || mColl.onGround)
         {
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             wallCounter = fallWallCounter;
@@ -90,12 +95,12 @@ public class PlayerMovement : MonoBehaviour
                 if (mColl.onWall && mColl.onRightWall)
                 {
                     JumpingFromWall();
-                    rb.velocity = Vector2.Lerp(new Vector2 (rb.velocity.x, rb.velocity.y), new Vector2(-speed * 4, rb.velocity.y), 2);
+                    rb.velocity = Vector2.Lerp(new Vector2(rb.velocity.x, rb.velocity.y), new Vector2(-speed * 1.5F, rb.velocity.y), 2);
                 }
                 else if (mColl.onWall && mColl.onLeftWall)
                 {
                     JumpingFromWall();
-                    rb.velocity = Vector2.Lerp(new Vector2(rb.velocity.x, rb.velocity.y), new Vector2(speed * 4, rb.velocity.y),2);
+                    rb.velocity = Vector2.Lerp(new Vector2(rb.velocity.x, rb.velocity.y), new Vector2(speed * 1.5f, rb.velocity.y), 2);
                     //rb.velocity = new Vector2(speed * 4, rb.velocity.y);
                 }
             }
@@ -121,7 +126,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
     #region Walk&Jump functions
 
     private void Walk()
@@ -136,6 +140,10 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.velocity += Vector2.up * jumpForce;
+
+        Vector3 vel = rb.velocity;
+        vel.y -= BONUS_GRAV * Time.deltaTime;
+        rb.velocity = vel;
     }
 
     private void WallJump()
@@ -144,11 +152,11 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, 0);
         if (mColl.onRightWall)
         {
-            rb.velocity = new Vector2(-speed * 2, jumpForce);
+            rb.velocity = new Vector2(-speed * 1.5f, jumpForce);
         }
         else if (mColl.onLeftWall)
         {
-            rb.velocity = new Vector2(speed * 2, jumpForce);
+            rb.velocity = new Vector2(speed * 1.5f, jumpForce);
         }
     }
 

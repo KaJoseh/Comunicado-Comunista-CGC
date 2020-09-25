@@ -4,12 +4,28 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private bool created;
 
-    public GameStats gameStats;
+
+    [Header("-------| Game Data |--------")]
+    //Players Stuff
+    public float damage;
+    public float maxHealth;
+    [HideInInspector]
+    public int p1Score, p2Score;
+    
+    [Space]
+
+    //Rounds Stuff
+    public float roundDurationInSec;
+    public float timeUntilNextRound;
+
+    SetWinner sw;
+    RoundManager rm;
+    Timer t;
+    bool canSetWinner;
 
     /// <summary>
-    /// 
+    /// the gamemodes
     /// </summary>
     public enum gameModes
     {
@@ -17,6 +33,7 @@ public class GameManager : MonoBehaviour
         PLAYING,
         ROUNDOVER
     }
+
     private gameModes gameMode;
     public gameModes GameMode
     {
@@ -32,6 +49,7 @@ public class GameManager : MonoBehaviour
     }
 
 
+    bool created;
     void Awake()
     {
         if (!created)
@@ -42,18 +60,54 @@ public class GameManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
+
     // Start is called before the first frame update
     void Start()
     {
+        canSetWinner = true;
+        t = GetComponent<Timer>();
+        sw = GetComponent<SetWinner>();
+        rm = GetComponent<RoundManager>();
         GameMode = GameManager.gameModes.PLAYING;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if( GameMode == GameManager.gameModes.ROUNDOVER && canSetWinner)
+        {
+            //print("Hola");
+            canSetWinner = false;
+            sw.SetRoundWinner();
+            StartCoroutine(WaitForNewRound());
+        }
     }
 
-    
+
+    IEnumerator WaitForNewRound()
+    {
+        yield return new WaitForSeconds(timeUntilNextRound);
+        //setWinner.LookForGameWinner();
+        t.timerIsRunning = true;
+        t.currentTime = roundDurationInSec;
+        print("3.. 2... 1... YA!");
+        if (p1Score >= 3 || p2Score >= 3)
+        {
+            rm.NewRound();
+            p1Score = 0;
+            p2Score = 0;
+
+            GameMode = GameManager.gameModes.PLAYING;
+            canSetWinner = true;
+        }
+        else
+        {
+            rm.NewRound();
+
+            GameMode = GameManager.gameModes.PLAYING;
+            canSetWinner = true;
+        }
+    }
+
 
 }
