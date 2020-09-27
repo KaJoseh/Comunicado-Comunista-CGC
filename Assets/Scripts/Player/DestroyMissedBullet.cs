@@ -20,4 +20,12 @@ public class DestroyMissedBullet : MonoBehaviour
         if (waitToDestroy <= 0)
             Destroy(gameObject);
     }
+
+    private void OnTriggerEnter2D(Collider2D c)
+    {
+        if (!(c.gameObject.tag == "PlayerOne" || c.gameObject.tag == "PlayerTwo"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }

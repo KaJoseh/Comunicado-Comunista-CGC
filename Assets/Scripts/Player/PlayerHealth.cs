@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     public float healthBarYPos;
     public TextMeshProUGUI ammoText;
 
+    Rigidbody2D rb;
     GameManager gm;
 
 
@@ -19,7 +20,7 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         gm = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
-
+        rb = gameObject.GetComponent<Rigidbody2D>();
         currentHealth = gm.maxHealth;
         canSetWinner = true;
     }
@@ -44,11 +45,20 @@ public class PlayerHealth : MonoBehaviour
         {
             currentHealth -= gm.damage;
             Destroy(bullet.gameObject);
+            Knockback(bullet.gameObject);
         }
         else if (gameObject.tag.Equals("PlayerOne") && bullet.gameObject.tag.Equals("P2Bullet") && currentHealth >= 0)
         {
             currentHealth -= gm.damage;
             Destroy(bullet.gameObject);
+            Knockback(bullet.gameObject);
         }
     }
+
+    void Knockback(GameObject bullet)
+    {
+        Vector3 moveDirection = rb.transform.position - bullet.transform.position;
+        rb.AddForce(moveDirection.normalized * 500f);
+    }
+
 }
