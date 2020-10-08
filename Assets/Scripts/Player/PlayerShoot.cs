@@ -18,6 +18,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     KeyCode shootKey;
 
+
     Vector2 direction;
     PlayerHealth playerH;
 

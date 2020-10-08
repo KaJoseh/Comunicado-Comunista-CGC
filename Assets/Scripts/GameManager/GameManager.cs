@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     //Players Stuff
     public float damage;
     public float maxHealth;
+    public float drainFrequency;
     [HideInInspector]
     public int p1Score, p2Score;
     

@@ -977,6 +977,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 3
   maxHealth: 20
+  drainFrequency: 0.2
   p1Score: 0
   p2Score: 0
   roundDurationInSec: 60

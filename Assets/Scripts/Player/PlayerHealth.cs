@@ -9,12 +9,15 @@ public class PlayerHealth : MonoBehaviour
     [Range(0.0f, 1.0f)]
     public float healthBarYPos;
     public TextMeshProUGUI ammoText;
+    bool inKnockBack;
 
     Rigidbody2D rb;
     GameManager gm;
 
 
-    bool canSetWinner;
+    bool canDrain;
+    float drainTime;
+
     public float currentHealth;
 
     private void Start()
@@ -22,7 +25,6 @@ public class PlayerHealth : MonoBehaviour
         gm = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         currentHealth = gm.maxHealth;
-        canSetWinner = true;
     }
 
     // Update is called once per frame
@@ -30,8 +32,23 @@ public class PlayerHealth : MonoBehaviour
     {
         ammoText.SetText(currentHealth.ToString());
         ammoText.transform.position = new Vector2(transform.position.x, transform.position.y + healthBarYPos);
+        
+        
+        if(gm.GameMode == GameManager.gameModes.PLAYING)
+        {
+            if (drainTime <= 0)
+            {
+                currentHealth--;
+                drainTime = gm.drainFrequency;
+            }
+            else if (drainTime >= 0)
+            {
+                drainTime -= Time.deltaTime;
+            }
+        }
 
-        if(currentHealth < 0)
+
+        if(currentHealth < 0 && gm.GameMode == GameManager.gameModes.PLAYING)
         {
             //canSetWinner = false;
             gm.GameMode = GameManager.gameModes.ROUNDOVER;
@@ -57,8 +74,17 @@ public class PlayerHealth : MonoBehaviour
 
     void Knockback(GameObject bullet)
     {
+        inKnockBack = true;
+
         Vector3 moveDirection = rb.transform.position - bullet.transform.position;
-        rb.AddForce(moveDirection.normalized * 500f);
+        rb.AddForce(moveDirection.normalized * 100f);
+        if (inKnockBack)
+        {
+            inKnockBack = false;
+            rb.mass = 0.1f;
+        }
+        else
+            rb.mass = 1.0f;
     }
 
 }
