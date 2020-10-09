@@ -11,6 +11,8 @@ TagManager:
   - P1Bullet
   - P2Bullet
   - StatsController
+  - PickUp
+  - PickUpLocation
   layers:
   - Default
   - TransparentFX
