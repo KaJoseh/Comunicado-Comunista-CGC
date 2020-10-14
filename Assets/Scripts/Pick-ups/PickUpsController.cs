@@ -17,7 +17,7 @@ public class PickUpsController : MonoBehaviour
     }
 
 
-    void GeneratePickUps()
+    public void GeneratePickUps()
     {
         pickUpsLocations = GameObject.FindGameObjectsWithTag("PickUpLocation");
 

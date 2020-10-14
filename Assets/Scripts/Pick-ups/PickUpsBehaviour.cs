@@ -4,19 +4,30 @@ using UnityEngine;
 
 public class PickUpsBehaviour : MonoBehaviour
 {
+    float rand;
     float healthBoost;
 
     // Start is called before the first frame update
     void Start()
     {
-        healthBoost = 10;
+        rand = Random.Range(1, 10);
+        if (rand <= 4)
+        {
+            healthBoost = 10;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+        else if(rand <= 8)
+        {
+            healthBoost = 16;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+        } 
+        else if(rand <= 10)
+        {
+            healthBoost = 22;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter2D(Collider2D c)
     {
@@ -26,4 +37,5 @@ public class PickUpsBehaviour : MonoBehaviour
             c.gameObject.GetComponent<PlayerHealth>().currentHealth += healthBoost;
         }
     }
+
 }

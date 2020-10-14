@@ -6,6 +6,7 @@ using TMPro;
 public class RoundManager : MonoBehaviour
 {
 
+    public PickUpsController pu;
     public GameObject p1;
     public GameObject p2;
 
@@ -29,6 +30,8 @@ public class RoundManager : MonoBehaviour
     /// </summary>
     public void NewRound()
     {
+
+        pu.GeneratePickUps();
         //setting players health
         p1.GetComponent<PlayerHealth>().currentHealth = gm.maxHealth;
         p2.GetComponent<PlayerHealth>().currentHealth = gm.maxHealth;
