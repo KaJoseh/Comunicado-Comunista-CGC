@@ -52,9 +52,15 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (Input.GetKey(rightKey))
+        {
             xDir = 1;
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
         else if (Input.GetKey(leftKey))
+        {
             xDir = -1;
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
 
     }
     private void FixedUpdate()
